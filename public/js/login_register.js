@@ -77,7 +77,7 @@ async function loginUser(evt) {
     } else {
       console.log('login did not work :(');
     }
-  }).then(data => console.log('next'))
+  }).then(data => console.log(data))
   .catch(err => console.err(err));
 }
 
