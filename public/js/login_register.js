@@ -3,7 +3,7 @@ const USER_ROLE = '0';
 const CREATE_USER_URL = '/api/user';
 const LOGIN_USER_URL = '/api/users/auth';
 
-addElementinView(createElementFromTemplate("#loginView"));
+goToLogin();
 
 function addElementinView(element) {
   view.appendChild(element);
@@ -16,29 +16,30 @@ function clearView() {
 function createElementFromTemplate(id) {
   let viewTemplate = document.querySelector(id);
   let clone = document.importNode(viewTemplate.content, true);
-  console.log(clone);
   return clone;
 }
 
 function goToLogin() {
   clearView();
   addElementinView(createElementFromTemplate("#loginView"));
+  document.getElementById('loginForm').onsubmit = loginUser;
 }
 
 function goToCreate() {
   clearView();
   addElementinView(createElementFromTemplate("#createUserView"));
+  document.getElementById('createUserForm').onsubmit = createUser;
 }
 
 async function createUser(evt) {
-//  evt.preventDefault();
+  evt.preventDefault();
 
   let data = JSON.stringify({
     username: document.getElementById('inpUserName').value,
     email: document.getElementById('inpEmail').value,
     password: document.getElementById('inpPsw').value,
     role: USER_ROLE
-  })
+  });
 
   fetch(CREATE_USER_URL, {
     method: 'POST',
@@ -56,7 +57,29 @@ async function createUser(evt) {
   .catch(err => console.err(err));
 }
 
+async function loginUser(evt) {
+  evt.preventDefault();
 
+  let data = JSON.stringify({
+    username: document.getElementById('inpUserName').value,
+    password: document.getElementById('inpPsw').value
+  });
+
+  fetch(LOGIN_USER_URL, {
+    method: 'POST',
+    body: data,
+    headers: {
+      "Content-Type": "application/json; charset=utf-8"
+    }
+  }).then(response => {
+    if (response.status < 400) {
+      console.log('login success!!! :D');
+    } else {
+      console.log('login did not work :(');
+    }
+  }).then(data => console.log('next'))
+  .catch(err => console.err(err));
+}
 
 //RegisterBTN.onclick = register;
 /*
