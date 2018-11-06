@@ -1,7 +1,7 @@
 let view = document.getElementById('view');
 const USER_ROLE = '0';
-const CREATE_USER_URL = 'public.users';
-const LOGIN_USER_URL = 'public.users';
+const CREATE_USER_URL = 'public/users';
+const LOGIN_USER_URL = 'public/users';
 
 goToLogin();
 
