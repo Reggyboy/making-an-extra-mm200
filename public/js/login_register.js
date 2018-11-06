@@ -1,7 +1,7 @@
 let view = document.getElementById('view');
 const USER_ROLE = '0';
-const CREATE_USER_URL = '/api/user';
-const LOGIN_USER_URL = '/api/users/auth';
+const CREATE_USER_URL = '/api/users';
+const LOGIN_USER_URL = '/api/users';
 
 goToLogin();
 
