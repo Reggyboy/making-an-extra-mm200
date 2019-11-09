@@ -23,13 +23,16 @@ async function runQuery(query) {
     let res = await client.query(query).then(function(res) {
       return res;
     }).catch(function(err) {
-      console.err(err);
+      console.error(err);
     });
 
-    response = res.rows; //returns array with resulting rows of query
+    if (res.rows && res.rows.length > 0) {
+        response = res.rows; //returns array with resulting rows of query
+    }
   } catch (e) {
-    console.err("Error: ");
-    console.log(e);
+    console.error("Error: " + e);
+  } finally {
+    client.end();
   }
 
   return response;

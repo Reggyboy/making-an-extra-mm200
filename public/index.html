@@ -2,21 +2,16 @@
 <html>
   <head>
     <title>Once upon a Slide</title>
+    <link rel='icon' href='/images/favicon2.ico' type='image/x-icon'/>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/login_signup.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Pacifico|Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico|Roboto|Varela+Round" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
   <body class="loginSignupPage">
-    <div class="navbar" id="topnav">
-      <a href=#>Home</a>
-      <a href=# class="active">My presentations</a>
-      <a href=#>My account</a>
-      <a href=#>Settings</a>
-      <i class="fas fa-bars" onclick="expandNavigation()"></i>
-    </div>
+    <div class="navbar" id="top"></div>
 
     <div class="pageTitle">
       <h1>Once Upon a Slide</h1>
@@ -31,7 +26,7 @@
           <h1>Sign up</h1>
         </div>
       </div>
-      <form id="createUserForm" onsubmit="createUser()">
+      <form id="createUserForm">
         <label for="inpUserName">User name: </label>
         <input id="inpUserName" type="text" required>
         <br>
@@ -41,6 +36,7 @@
         <label for="inpPsw">Password: </label>
         <input id="inpPsw" type="password" required>
         <br>
+        <p id="signupMessage"></p>
         <input id="btnCreate" type="submit" value="Sign up">
       </form>
     </template>
@@ -54,18 +50,22 @@
       </div>
       <form id="loginForm">
         <label for="inpUserName">User name: </label>
-        <br>
         <input id="inpUserName" type="text" required>
         <br>
         <label for="inpPsw">Password: </label>
-        <br>
         <input id="inpPsw" type="password" required>
         <br>
-        <input id="btnLogin" type="submit" class="button" value="Login">
+        <p id="loginMessage"></p>
+        <input id="btnLogin" type="submit" value="Login">
         <br>
       </form>
     </template>
+    <script src="./js/popupMessage.js"></script>
     <script src="./js/login_register.js"></script>
     <script src="./js/navbar.js"></script>
+    <script>
+  var activePage = 1;
+  MakeNavbar(activePage);
+  </script>
   </body>
 </html>

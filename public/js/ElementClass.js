@@ -17,6 +17,11 @@ class Element {
     return this.id;
   }
 
+  // gets type of element
+  getType(){
+    return this.type;
+  }
+
   // gets HTML of element
   getHTMLElement() {
     if (this.type === TEXT) {
@@ -39,11 +44,15 @@ class Element {
   // gets HTML for text
   createHTMLText(){
     let myText = document.createElement("text");
-    myText.contentEditable = true;
+    if (EDITABLE) {
+      myText.contentEditable = true;
+    }
     myText.innerHTML = this.content;
     myText.setAttribute( 'class', 'textElementSlide');
     myText.setAttribute('spellcheck', "false");
     myText.setAttribute('id', this.id);
+    myText.typeElement = this.type;
+    myText.contentElement = this.content;
     return myText;
   }
 
@@ -53,6 +62,9 @@ class Element {
     myImage.src = this.content;
     myImage.draggable = false;
     myImage.setAttribute('id', this.id);
+    myImage.className = 'image';
+    myImage.typeElement = this.type;
+    myImage.contentElement = this.content;
     return myImage;
   }
 
@@ -60,9 +72,9 @@ class Element {
   createHTMLVideo() {
     let myVidFrame = document.createElement('iframe');
     let vidDiv = document.createElement('div');
-    let dragIcon = document.createElement('icon');
+    let dragIcon = document.createElement('img');
     vidDiv.className = "vidDiv"
-    dragIcon.className = "fas fa-arrows-alt";
+    dragIcon.setAttribute("src", "images/dragging.png");
 
     myVidFrame.src = this.content;
     myVidFrame.frameborder = "0";
@@ -72,21 +84,45 @@ class Element {
 
     vidDiv.appendChild(myVidFrame);
     vidDiv.appendChild(dragIcon);
+    vidDiv.typeElement = this.type;
+    vidDiv.contentElement = this.content;
     return vidDiv;
-
-    //https://www.youtube.com/embed/xbhCPt6PZIU works
-    //https://www.youtube.com/embed/dmKeIlJq4gM doesn't
   }
 
   // gets HTML for sound
   createHTMLSound() {
-    let audioElement = document.createElement('audio');
-    let audioSource = document.createElement('source');
+    let audioSource = document.createElement('audio');
+    let audioElement = document.createElement('div');
+    let playButton = document.createElement('img');
+    audioSource.id = `sound_${this.id}`;
+    playButton.className ="soundLeft";
+    playButton.setAttribute("src", "images/play.svg");
+    playButton.onclick = function(){
+      audioSource.play();
+    }
+    let stopButton = document.createElement('img');
+    stopButton.className="soundRight";
+    stopButton.setAttribute("src", "images/pause.svg");
+    stopButton.onclick = function(){
+      audioSource.pause();
+    }
     audioElement.className = "soundElement";
-    audioElement.setAttribute('controls', '');
     audioSource.src = this.content;
+    let audioDrag = document.createElement('div');
+    audioDrag.className = "soundDrag";
+
+    let dragIcon = document.createElement('img');
+    dragIcon.setAttribute("src", "images/dragging.png");
+
     audioElement.appendChild(audioSource);
+    audioElement.appendChild(playButton);
+    audioElement.appendChild(stopButton);
+    audioDrag.appendChild(dragIcon);
+    audioElement.appendChild(audioDrag);
+
+    audioElement.typeElement = this.type;
+    audioElement.contentElement = this.content;
+
     return audioElement;
   }
-
 }

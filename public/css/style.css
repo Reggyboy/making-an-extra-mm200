@@ -57,12 +57,15 @@ table {
 --grey: #5D675B;
 */
 
-/* COLOR THEME: colorful green
+/* COLOR THEME: colorful green */
   --main-color: #9FD356;
   --second-color: #3C91E6;
   --third-color: #FA824C;
+  --light: #fafafa;
   --grey: #342E37;
-*/
+  --light-grey: #EEE;
+  --grey-background-gradient: linear-gradient(0deg, #CCC, #EEE);
+
 
 /* COLOR THEME: red teints
   --main-color: #F2545B;
@@ -71,11 +74,12 @@ table {
   --grey: #19323C;
 */
 
-/* COLOR THEME: colorful */
+/* COLOR THEME: colorful
   --main-color: #FE4A49;
   --second-color: #009FB7;
   --third-color: #FED766;
   --grey: #333;
+*/
 
   --title-font: 'Pacifico', cursive;
   --text-font: 'Roboto', sans-serif;
@@ -88,7 +92,7 @@ table {
     display: none;
   }
 
-  .navbar i {
+  .navbar .iconBurger {
     float: right;
     display: block;
     font-size: 16px;
@@ -97,7 +101,7 @@ table {
     color: var(--third-color);
   }
 
-  .navbar.expanded i {
+  .navbar.expanded .iconBurger {
     position: absolute;
     right: 0;
     top: 0;
@@ -108,104 +112,21 @@ table {
     display: block;
     text-align: left;
   }
-
-  /* For displaying slide ---------------------------------------------*/
-  .displayDivContainer {
-    width: 95%;
-    margin-top: 20px;
-    margin-left: 2.5%;
-    margin-right: 2.5%;
-    margin-bottom: 20px;
-  }
-
-  .textElementSlide {
-    font-size: 7.6vw;
-  }
-
-  .vidDiv {
-    font-size: 2.5vw;
-  }
-
-  /* For displaying note ----------------------------------------------*/
-  .noteDivContainer {
-    margin-left: 2.5%;
-    margin-right: 3%;
-    width: 94.5%;
-    margin-bottom: 20px;
-  }
-
-  .noteDivContainer textarea {
-    max-width: 100%;
-    padding-bottom: 5%;
-    width: 100%;
-    height: 5%;
-  }
 }
 
 /* CSS specifically for desktops -----------------------------------------*/
 @media screen and (min-width: 768px) {
   /* For navbar -------------------------------------------------------*/
-  .navbar i {
+  .navbar .iconBurger {
     display: none;
   }
 
-  /* For displaying slide ---------------------------------------------*/
-  .displayDivContainer {
-    width: 50%;
-    margin-top: 20px;
-    margin-left: 20%;
-    margin-bottom: 20px;
-    float: left;
-  }
-
-  .textElementSlide {
-    font-size: 4vw;
-  }
-
-  /* For displaying note ----------------------------------------------*/
-  .noteDivContainer {
-    padding-top: 20px;
-    margin-right: 10%;
+  .navbar .btnLogOff {
     float: right;
-    width: 15%;
-  }
-
-  .noteDivContainer textarea {
-    max-width: 100%;
-    padding-bottom: 100%;
-    margin-bottom: 5%;
-    width: 100%;
-    height: 100%;
-  }
-
-  .controlSlide {
-    float: left;
-    width: 50%;
-    margin-left: 20%;
-  }
-
-  .EditToolsSlide {
-    float: left;
-    width: 50%;
-    margin-left: 20%;
-  }
-
-  .vidDiv {
-    font-size: 1.5vw;
   }
 }
 
 /* CSS for both desktop and mobile screens -------------------------------*/
-/* General css --------------------------------------------------------*/
-.column4 {
-  float: left;
-  width: 25%;
-}
-
-textarea {
-  resize: none;
-}
-
 /* For navbar ---------------------------------------------------------*/
 .navbar {
   overflow: hidden;
@@ -219,13 +140,14 @@ textarea {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 15px;
+  font-family: var(--text-font);
   color: #EEE;
 }
 
 .navbar .active {
   background-color: var(--main-color);
-  color: white;
+  color: var(--grey);
 }
 
 .navbar a:hover {
@@ -233,111 +155,183 @@ textarea {
   color: white;
 }
 
-/* For displaying slide -----------------------------------------------*/
-.displayDiv {
-  padding-top: 56.25%;
-  width: 100%;
-  background-color: #FEFEFE;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  overflow: hidden;
-  position: relative;
+.navbar .btnLogOff {
+  color: var(--third-color);
 }
 
-.displayDiv img {
-  width : 30%;
+.navbar .btnLogOff:hover {
+  color: var(--third-color);
+  cursor: pointer;
+}
+
+.navbar .btnLogOff i {
+  margin-left: 8px;
+}
+/* Popup messages --------------------------------------------------------*/
+
+.confirmMessage {
+  top: 50px;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
   position: absolute;
+  z-index: 10;
+  background-color: #cbe5a7;
+  border: 2px solid var(--main-color);
+  border-radius: 3px;
 }
 
-.vidElement {
-  position: relative;
-  width: 100%;
-  height: 80%;
+.confirmMessage p {
+  float: left;
+  padding: 10px;
+  padding-left: 20px;
+  color: #3a5613;
+  font-family: var(--text-font);
+  font-size: 14px;
+}
+
+.confirmMessage button {
+  background-color: #cbe5a7;
+  color: #3a5613;
+  float: right;
+  right: 0;
+  margin: 10px;
   border: none;
 }
 
-.vidDiv {
+.errorMessage {
+  top: 50px;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
   position: absolute;
-  width: 40%;
-  height: 60%;
-  display: inline-block;
-  background-color: var(--grey);
+  z-index: 10;
+  background-color: #ffceb7;
+  border: 2px solid var(--third-color);
+  border-radius: 3px;
 }
 
-.vidDiv icon {
-  float: right;
-  margin: 2%;
-  padding: 2%;
-  color: var(--second-color);
-}
-
-.soundElement {
-  position: absolute;
-  width: 50%;
-}
-
-/* For tools controlling visible slide --------------------------------*/
-.controlSlide {
-  clear: both;
-}
-
-.controlSlideColumn {
+.errorMessage p {
   float: left;
-  width: 20%;
-  text-align: center;
+  padding: 10px;
+  padding-left: 20px;
+  color: #7c4024;
+  font-family: var(--text-font);
+  font-size: 14px;
 }
 
-.controlSlideColumn i {
-  cursor: pointer;
-  font-size: 2em;
-  color: var(--second-color);
+.errorMessage button {
+  background-color: #ffceb7;
+  color: #7c4024;
+  float: right;
+  right: 0;
+  margin: 10px;
+  border: none;
 }
 
-.controlSlideColumn p {
-  line-height: 1.2;
+/* Themes ---------------------------------------------------------*/
+/* Default theme ----------------------------------------------*/
+.themeDefault {
+  background-color: #FEFEFE;
+  background-image: none;
 }
 
-/* For tools editing slide --------------------------------------------*/
-.EditToolsSlide {
-  padding-top: 20px;
-  clear: both;
-  text-align: center;
+.themeDefault .vidDiv {
+  background-color: var(--light-grey);
 }
 
-.EditToolsSlide input {
-  display: block;
-  text-align: center;
-  margin: auto;
-  margin-bottom: 10px;
+.themeDefault .textElementSlide {
+  font-family: var(--title-font);
+  color: var(--grey);
+  background-color: none;
+  font-weight: normal;
 }
 
-.EditToolsSlide i {
-  display: block;
-  color: var(--second-color);
+/* Dark theme -------------------------------------------------*/
+.themeDark {
+  background-color: #222;
+  background-image: none;
 }
 
-.creationDiv {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.themeDark .vidDiv {
+  background-color: var(--light-grey);
 }
 
-.textElementSlide {
-  position: absolute;
-  left: 0%;
-  top: 0%;
-  background-color: var(--third-color);
-  user-select: none;
+.themeDark .textElementSlide {
+  font-family: var(--title-font);
+  background-color: none;
+  color: #FEFEFE;
+  font-weight: normal;
 }
 
-@media all and (display-mode: fullscreen) {
-  .textElementSlide {
-    font-size: 8vw;
-  }
+/* Geometric theme -------------------------------------------*/
+.themeGeometric {
+  background-image: url('/images/backgrounds/geometric.jpg');
+  background-size: cover;
+  background-color: none;
+}
 
-  .displayDivContainer{
-    width: 100% ;
-  }
+.themeGeometric .vidDiv {
+  background-color: var(--light-grey);
+}
 
+.themeGeometric .textElementSlide {
+  font-family: var(--text-font);
+  color: var(--grey);
+  font-weight: bold;
+  background-color: none;
+}
+
+/* Washed forest theme ----------------------------------------*/
+.themeWashed {
+  background-image: url('/images/backgrounds/washed_forest.jpg');
+  background-size: cover;
+  background-color: none;
+}
+
+.themeWashed .vidDiv {
+  background-color: var(--main-color);
+}
+
+.themeWashed .textElementSlide {
+  font-family: var(--text-font);
+  color: black;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Wood theme -----------------------------------------------*/
+.themeWood {
+  background-image: url('/images/backgrounds/wood.jpg');
+  background-size: cover;
+  background-color: none;
+}
+
+.themeWood .vidDiv {
+  background-color: var(--light-grey);
+}
+
+.themeWood .textElementSlide {
+  font-family: var(--text-font);
+  color: black;
+  font-weight: bold;
+  background-color: none;
+}
+
+/* Dark wall theme -------------------------------------------*/
+.themeDarkWall {
+  background-image: url('/images/backgrounds/dark_wall.jpg');
+  background-size: cover;
+  background-color: none;
+}
+
+.themeDarkWall .vidDiv {
+  background-color: var(--light-grey);
+}
+
+.themeDarkWall .textElementSlide {
+  color: var(--light-grey);
+  font-family: 'Varela Round', sans-serif;
+  background-color: rgba(0, 0, 0, 0.4);
+  font-weight: normal;
 }
